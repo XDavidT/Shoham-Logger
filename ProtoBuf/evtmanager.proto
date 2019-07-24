@@ -1,0 +1,26 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+service Pusher{
+  rpc PushLog(evtMgr) returns(ack) {}
+}
+
+message evtMgr {
+  int64 id = 1;
+  google.protobuf.Timestamp time = 2;  // Unique ID number for this person.
+  int32 type = 3;
+  string src = 4;
+  int32 cat = 5;
+  repeated string dataList = 6; //data content
+
+  string hostname = 7;
+  string username = 8;
+  string os = 9;
+}
+message ack{
+  bool isDeliver = 1;
+}
+
+//protoc --proto_path=ProtoBuf --python_out=./ ProtoBuf/evtmanager.proto                                  // For proto
+//python -m grpc_tools.protoc -I./ProtoBuf --python_out=./ --grpc_python_out=./ ProtoBuf/evtmanager.proto // For grpc
+//Added to github
