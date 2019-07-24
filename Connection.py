@@ -10,7 +10,8 @@ class PusherServicer(evtmanager_pb2_grpc.PusherServicer):
         # TODO: Add connection to DB
         pass
 
-
+    def PushLog(self, request, context):
+        pass
 
 
 
