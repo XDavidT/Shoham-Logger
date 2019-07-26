@@ -1,9 +1,6 @@
 from MongoHandler import *
 
-db_connection()
-meg.disconnect(alias='azure')
-
-class LogTemplate:
+class LogTemplate(meg.Document):
     id = meg.IntField(required=True)
     time = meg.DateTimeField(required=True)
     type = meg.IntField(required=True)

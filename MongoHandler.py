@@ -1,5 +1,4 @@
 import mongoengine as meg
-
 def db_connection():
     meg.register_connection(
         alias='azure',
@@ -8,5 +7,3 @@ def db_connection():
         host='52.168.9.175',
         port='27017'
     )
-
-    # TODO: Complete connection
