@@ -12,6 +12,6 @@ class LogTemplate(meg.Document):
     os = meg.StringField()
 
     meta = {
-        'db_alias': 'azure',
+        'db_alias': 'default',
         'collection': 'client_logs'
     }
