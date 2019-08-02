@@ -4,6 +4,6 @@ def db_connection():
         alias='default',
         username='db-admin',
         password='xfeDZ{}Js4zw',
-        host='52.168.9.175',
+        host='40.71.181.61',
         port='27017'
     )

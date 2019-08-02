@@ -1,5 +1,5 @@
 from concurrent import futures
-import grpc
+import grpc , time
 from ProtoBuf import evtmanager_pb2_grpc,evtmanager_pb2
 from EvtManagerClass import LogTemplate, db_connection
 
@@ -10,6 +10,7 @@ class informationExchangeServicer(evtmanager_pb2_grpc.informationExchangeService
         db_connection()
 
     def PushLog(self, request, context):
+        print("Pusher has been used !")
         try:
             log = LogTemplate()
             log.id = request.id
@@ -35,6 +36,13 @@ def startConnection():  # Server to connect with client
     evtmanager_pb2_grpc.add_informationExchangeServicer_to_server(informationExchangeServicer(), server)
     server.add_insecure_port('[::]:50051')
     server.start()
+    try:
+        while True:
+            print('Server is UP !')
+            time.sleep(3600)
+    except KeyboardInterrupt:
+        server.stop(0)
+
 
 if __name__ == '__main__':
     startConnection()
