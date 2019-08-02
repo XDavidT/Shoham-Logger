@@ -4,7 +4,7 @@ import grpc
 import evtmanager_pb2 as evtmanager__pb2
 
 
-class PusherStub(object):
+class informationExchangeStub(object):
   # missing associated documentation comment in .proto file
   pass
 
@@ -15,13 +15,18 @@ class PusherStub(object):
       channel: A grpc.Channel.
     """
     self.PushLog = channel.unary_unary(
-        '/Pusher/PushLog',
+        '/informationExchange/PushLog',
         request_serializer=evtmanager__pb2.evtMgr.SerializeToString,
         response_deserializer=evtmanager__pb2.ack.FromString,
         )
+    self.getInfo = channel.unary_unary(
+        '/informationExchange/getInfo',
+        request_serializer=evtmanager__pb2.ack.SerializeToString,
+        response_deserializer=evtmanager__pb2.information.FromString,
+        )
 
 
-class PusherServicer(object):
+class informationExchangeServicer(object):
   # missing associated documentation comment in .proto file
   pass
 
@@ -32,15 +37,27 @@ class PusherServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def getInfo(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
 
-def add_PusherServicer_to_server(servicer, server):
+
+def add_informationExchangeServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'PushLog': grpc.unary_unary_rpc_method_handler(
           servicer.PushLog,
           request_deserializer=evtmanager__pb2.evtMgr.FromString,
           response_serializer=evtmanager__pb2.ack.SerializeToString,
       ),
+      'getInfo': grpc.unary_unary_rpc_method_handler(
+          servicer.getInfo,
+          request_deserializer=evtmanager__pb2.ack.FromString,
+          response_serializer=evtmanager__pb2.information.SerializeToString,
+      ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'Pusher', rpc_method_handlers)
+      'informationExchange', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))

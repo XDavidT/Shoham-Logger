@@ -1,8 +1,9 @@
 syntax = "proto3";
 import "google/protobuf/timestamp.proto";
 
-service Pusher{
+service informationExchange{
   rpc PushLog(evtMgr) returns(ack) {}
+  rpc getInfo(ack) returns(information) {}
 }
 
 message evtMgr {
@@ -19,6 +20,10 @@ message evtMgr {
 }
 message ack{
   bool isDeliver = 1;
+}
+
+message information{
+  repeated string category = 1;
 }
 
 //protoc --proto_path=ProtoBuf --python_out=ProtoBuf ProtoBuf/evtmanager.proto                                  // For proto

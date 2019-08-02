@@ -4,7 +4,7 @@ from ProtoBuf import evtmanager_pb2_grpc,evtmanager_pb2
 from EvtManagerClass import LogTemplate, db_connection
 
 
-class PusherServicer(evtmanager_pb2_grpc.PusherServicer):
+class informationExchangeServicer(evtmanager_pb2_grpc.informationExchangeServicer):
 
     def __init__(self):
         db_connection()
@@ -26,9 +26,13 @@ class PusherServicer(evtmanager_pb2_grpc.PusherServicer):
         except:
             return evtmanager_pb2.ack(isDeliver = False)  # TCP Style
 
+    def getInfo(self, request, context):
+        categories = ['Application', 'System']
+        return evtmanager_pb2.information(information=categories)
+
 def startConnection():  # Server to connect with client
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    evtmanager_pb2_grpc.add_PusherServicer_to_server(PusherServicer(), server)
+    evtmanager_pb2_grpc.add_informationExchangeServicer_to_server(informationExchangeServicer(), server)
     server.add_insecure_port('[::]:50051')
     server.start()
 
