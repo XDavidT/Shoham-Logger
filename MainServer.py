@@ -28,8 +28,12 @@ class informationExchangeServicer(evtmanager_pb2_grpc.informationExchangeService
             return evtmanager_pb2.ack(isDeliver = False)  # TCP Style
 
     def getInfo(self, request, context):
-        categories = ['Application', 'System']
-        return evtmanager_pb2.information(information=categories)
+        print("trying to get cat")
+        cat_massage = evtmanager_pb2.information()
+        cat_list = cat_massage.category
+        cat_list.append('System')
+        cat_list.append('Application')
+        return cat_massage
 
 def startConnection():  # Server to connect with client
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
