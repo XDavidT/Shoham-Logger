@@ -28,10 +28,11 @@ class informationExchangeServicer(evtmanager_pb2_grpc.informationExchangeService
             return evtmanager_pb2.ack(isDeliver = False)  # TCP Style
 
     def getInfo(self, request, context):
-        print("trying to get cat")
+        print("Request for Category's")
         cat_massage = evtmanager_pb2.information()
         cat_list = cat_massage.category
-        cat_list.append('System')
+        # static for now
+        cat_list.append('Security')
         cat_list.append('Application')
         return cat_massage
 
