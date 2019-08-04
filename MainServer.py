@@ -7,28 +7,14 @@ from MongoHandler import *
 class informationExchangeServicer(evtmanager_pb2_grpc.informationExchangeServicer):
 
     def __init__(self):
-        db_connection()
+        pass
 
-    def PushLog(self, request, context) -> LogTemplate:
+    def PushLog(self, request, context):
         print("Pusher has been used !") # For debug only
-        loghand = LogTemplate()
-        loghand.id = request.id
-        loghand.time = request.time
-        loghand.type = request.type
-        loghand.src = request.src
-        loghand.hostname = request.hostname
-        loghand.username = request.username
-        loghand.os = request.os
-        if (request.dataList != None):
-            loghand.dataList = request.dataList
-        try:
-            loghand.to_mongo()
-            loghand.save()
-            print("OK") # For debug only
-            return evtmanager_pb2.ack(isDeliver=True)   # TCP Style
-        except:
-            print("not-OK") # For debug only
-            return evtmanager_pb2.ack(isDeliver=False)  # TCP Style
+        if(pushToMongo(request)):
+            return evtmanager_pb2.ack(isDeliver=True)  # TCP Style
+        else:
+            return evtmanager_pb2.ack(isDeliver=False)
 
     def getInfo(self, request, context):
         print("Request for Category's") # For debug only
@@ -44,6 +30,7 @@ def startConnection():  # Server to connect with client
     evtmanager_pb2_grpc.add_informationExchangeServicer_to_server(informationExchangeServicer(), server)
     server.add_insecure_port('[::]:50051')
     server.start()
+    db_connection()
     try:
         while True:
             # TODO: set normal timer
