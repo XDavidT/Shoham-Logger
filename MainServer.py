@@ -1,7 +1,7 @@
 from concurrent import futures
-import grpc , time
+import grpc, time
 from ProtoBuf import evtmanager_pb2_grpc,evtmanager_pb2
-from EvtManagerClass import LogTemplate, db_connection
+from MongoHandler import *
 
 
 class informationExchangeServicer(evtmanager_pb2_grpc.informationExchangeServicer):
@@ -9,29 +9,32 @@ class informationExchangeServicer(evtmanager_pb2_grpc.informationExchangeService
     def __init__(self):
         db_connection()
 
-    def PushLog(self, request, context):
-        print("Pusher has been used !")
+    def PushLog(self, request, context) -> LogTemplate:
+        print("Pusher has been used !") # For debug only
+        loghand = LogTemplate()
+        loghand.id = request.id
+        loghand.time = request.time
+        loghand.type = request.type
+        loghand.src = request.src
+        loghand.hostname = request.hostname
+        loghand.username = request.username
+        loghand.os = request.os
+        if (request.dataList != None):
+            loghand.dataList = request.dataList
         try:
-            log = LogTemplate()
-            log.id = request.id
-            log.time = request.time
-            log.type = request.type
-            log.src = request.src
-            log.hostname = request.hostname
-            log.username = request.username
-            log.os = request.os
-            if (request.dataList != None):
-                log.dataList = request.dataList
-            log.save()
+            loghand.to_mongo()
+            loghand.save()
+            print("OK") # For debug only
             return evtmanager_pb2.ack(isDeliver=True)   # TCP Style
         except:
-            return evtmanager_pb2.ack(isDeliver = False)  # TCP Style
+            print("not-OK") # For debug only
+            return evtmanager_pb2.ack(isDeliver=False)  # TCP Style
 
     def getInfo(self, request, context):
-        print("Request for Category's")
+        print("Request for Category's") # For debug only
         cat_massage = evtmanager_pb2.information()
         cat_list = cat_massage.category
-        # static for now
+        # static for now # debug only
         cat_list.append('Security')
         cat_list.append('Application')
         return cat_massage
@@ -43,9 +46,11 @@ def startConnection():  # Server to connect with client
     server.start()
     try:
         while True:
+            # TODO: set normal timer
             print('Server is UP !')
             time.sleep(3600)
     except KeyboardInterrupt:
+        db_stopConnection()
         server.stop(0)
 
 
