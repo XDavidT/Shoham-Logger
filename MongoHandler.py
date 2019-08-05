@@ -13,7 +13,7 @@ def db_connection():
 def pushToMongo(evtmgr) -> LogTemplate:
     loghand = LogTemplate() # LogHandler in the Class
     loghand.logid = evtmgr.id
-    loghand.time = datetime.fromtimestamp(evtmgr.time.seconds)
+    loghand.time = datetime.fromtimestamp(evtmgr.time.seconds)  #TODO: check if the convert is right
     loghand.type = evtmgr.type
     loghand.src = evtmgr.src
     loghand.cat = evtmgr.cat

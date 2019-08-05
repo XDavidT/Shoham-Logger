@@ -26,5 +26,5 @@ message information{
   repeated string category = 1;
 }
 
-//protoc --proto_path=ProtoBuf --python_out=ProtoBuf ProtoBuf/..proto                                  // For proto
+//protoc --proto_path=ProtoBuf --python_out=ProtoBuf ProtoBuf/evtmanager.proto                                  // For proto
 //python -m grpc_tools.protoc -I./ProtoBuf --python_out=ProtoBuf --grpc_python_out=ProtoBuf ProtoBuf/evtmanager.proto // For grpc
