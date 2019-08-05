@@ -1,4 +1,5 @@
 import mongoengine as meg
+from datetime import datetime
 
 class LogTemplate(meg.Document):
     logid = meg.IntField(required=True)
