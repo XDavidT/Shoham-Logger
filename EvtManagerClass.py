@@ -1,7 +1,7 @@
 import mongoengine as meg
 
 class LogTemplate(meg.Document):
-    id = meg.IntField(required=True)
+    logid = meg.IntField(required=True)
     time = meg.DateTimeField(required=True)
     type = meg.IntField(required=True)
     src = meg.StringField(required=True)
