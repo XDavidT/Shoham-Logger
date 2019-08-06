@@ -9,8 +9,9 @@ class LogTemplate(meg.Document):
     cat = meg.IntField(required=True)
     dataList = meg.ListField()
     hostname = meg.StringField(required=True)
-    username = meg.StringField()
-    os = meg.StringField()
+    username = meg.StringField(required=True)
+    os = meg.StringField(required=True)
+    ip_add = meg.StringField(required=True)
 
     meta = {
         'alias': 'default',

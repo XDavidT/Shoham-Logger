@@ -20,6 +20,7 @@ def pushToMongo(evtmgr) -> LogTemplate:
     loghand.hostname = evtmgr.hostname
     loghand.username = evtmgr.username
     loghand.os = evtmgr.os
+    loghand.ip_add = evtmgr.ip_add
     if (evtmgr.dataList != None):
         loghand.dataList = list(evtmgr.dataList)
 
