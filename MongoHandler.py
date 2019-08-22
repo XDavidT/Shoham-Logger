@@ -4,9 +4,8 @@ from datetime import datetime
 def db_connection():
     try:
         # TODO: fix pushing to DB
-        meg.register_connection(alias='default',name ='test',host = '192.168.0.128',port = 27017)
+        meg.register_connection(alias='default',name ='clientManager',host = '192.168.0.128',port = 27017)
         print("Mongo try to connect") # Debug only
-
     except:
         print("Fail to connect DB") # Debug only
 

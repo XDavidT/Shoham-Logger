@@ -3,7 +3,6 @@ import grpc, time
 from ProtoBuf import evtmanager_pb2_grpc,evtmanager_pb2
 from MongoHandler import *
 
-
 class informationExchangeServicer(evtmanager_pb2_grpc.informationExchangeServicer):
 
     def __init__(self):
