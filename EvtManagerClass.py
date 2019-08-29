@@ -12,6 +12,7 @@ class LogTemplate(meg.Document):
     username = meg.StringField()
     os = meg.StringField(required=True)
     ip_add = meg.StringField(required=True)
+    mac_add = meg.StringField(required=True)
 
     meta = {
         'alias': 'default',
