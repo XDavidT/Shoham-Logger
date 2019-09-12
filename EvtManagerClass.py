@@ -2,6 +2,7 @@ import mongoengine as meg
 from datetime import datetime
 
 class LogTemplate(meg.Document):
+    id = meg.SequenceField(primary_key=True)
     logid = meg.IntField(required=True)
     time = meg.DateTimeField(required=True)
     type = meg.IntField(required=True)
