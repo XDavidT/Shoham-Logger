@@ -4,7 +4,8 @@ from datetime import datetime
 class LogTemplate(meg.Document):
     id = meg.SequenceField(primary_key=True)
     logid = meg.IntField(required=True)
-    time = meg.DateTimeField(required=True)
+    client_time = meg.DateTimeField(required=True)
+    insert_time = meg.DateTimeField(requierd=True)
     type = meg.IntField(required=True)
     src = meg.StringField(required=True)
     cat = meg.IntField(required=True)
