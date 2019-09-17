@@ -3,7 +3,6 @@ from datetime import datetime
 
 def db_connection():
     try:
-        # TODO: fix pushing to DB
         meg.register_connection(alias='default',name ='clientManager',host = '13.68.170.154',port = 27017)
         print("Mongo try to connect") # Debug only
     except:
