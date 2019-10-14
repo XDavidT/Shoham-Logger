@@ -3,12 +3,15 @@ from datetime import datetime
 
 def db_connection():
     try:
-        meg.register_connection(alias='default',name ='clientManager',host = '13.68.170.154',port = 27017)
+        meg.register_connection(alias='default',
+                                name ='clientManager',
+                                host = 'mongo.davidt.net',
+                                port = 27018 )
         print("Mongo try to connect") # Debug only
     except:
         print("Fail to connect DB") # Debug only
 
-def pushToMongo(evtmgr) -> LogTemplate:
+def pushToMongo(evtmgr) -> bool:
     loghand = LogTemplate() # LogHandler in the Class
     loghand.logid = evtmgr.id
     loghand.client_time = datetime.fromtimestamp(evtmgr.time.seconds)  #TODO: check if the convert is right
