@@ -2,12 +2,12 @@ import mongoengine as meg
 from datetime import datetime
 
 class LogTemplate(meg.Document):
-    logid = meg.IntField(required=True)
+    logid = meg.StringField(required=True)
     client_time = meg.DateTimeField(required=True)
     insert_time = meg.DateTimeField(requierd=True)
-    type = meg.IntField(required=True)
+    type = meg.StringField(required=True)
     src = meg.StringField(required=True)
-    cat = meg.IntField(required=True)
+    cat = meg.StringField(required=True)
     dataList = meg.ListField()
     hostname = meg.StringField(required=True)
     username = meg.StringField()

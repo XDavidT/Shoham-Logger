@@ -7,11 +7,11 @@ service informationExchange{
 }
 
 message evtMgr {
-  int64 id = 1;
+  string id = 1;
   google.protobuf.Timestamp time = 2;  // Unique ID number for this person.
-  int32 type = 3;
+  string type = 3;
   string src = 4;
-  int32 cat = 5;
+  string cat = 5;
   repeated string dataList = 6; //data content
 
   string hostname = 7;
