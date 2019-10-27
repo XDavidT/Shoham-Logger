@@ -4,12 +4,10 @@ from datetime import datetime
 def db_connection():
     try:
         meg.register_connection(alias='default',
-                                name ='clientManager',
-                                host = 'mongo.davidt.net',
-                                port = 27018 )
-        print("Mongo try to connect") # Debug only
-    except:
-        print("Fail to connect DB") # Debug only
+                                host = 'mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/clientManager?retryWrites=true&w=majority')
+        print("Mongo connected") # Debug only
+    except Exception as e:
+        print("Fail to connect DB\n"+e) # Debug only
 
 def pushToMongo(evtmgr) -> bool:
     loghand = LogTemplate() # LogHandler in the Class
@@ -37,3 +35,6 @@ def pushToMongo(evtmgr) -> bool:
 
 def db_stopConnection():
     meg.disconnect('default')
+
+
+# pip install pymongo[srv] Must use to srv
