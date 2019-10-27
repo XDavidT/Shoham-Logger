@@ -9,7 +9,6 @@ class informationExchangeServicer(evtmanager_pb2_grpc.informationExchangeService
         pass
 
     def PushLog(self, request, context):
-        print("Pusher has been used !") # For debug only
         if(pushToMongo(request)):
             return evtmanager_pb2.ack(isDeliver=True)  # TCP Style
         else:
@@ -19,15 +18,21 @@ class informationExchangeServicer(evtmanager_pb2_grpc.informationExchangeService
         print("Request for Category's") # For debug only
         cat_massage = evtmanager_pb2.information()
         cat_list = cat_massage.category
-        # static for now # debug only
+        #TODO: Get from server
         cat_list.append('Security')
         cat_list.append('Application')
         return cat_massage
 
 def startConnection():  # Server to connect with client
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    with open("Keys\server.key",'rb') as f:
+        private_key = f.read()
+    with open("Keys\server.crt",'rb') as f:
+        public_key = f.read()
     evtmanager_pb2_grpc.add_informationExchangeServicer_to_server(informationExchangeServicer(), server)
-    server.add_insecure_port('[::]:50051')
+    server_credentials = grpc.ssl_server_credentials(((private_key,public_key),))
+    server.add_secure_port('[::]:50051',server_credentials)
+    # server.add_insecure_port('[::]:50051')
     server.start()
     db_connection()
     try:
