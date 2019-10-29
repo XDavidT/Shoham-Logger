@@ -7,7 +7,7 @@ def db_connection():
                                 host = 'mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/clientManager?retryWrites=true&w=majority')
         print("Mongo connected") # Debug only
     except Exception as e:
-        print("Fail to connect DB\n"+e) # Debug only
+        print("Fail to connect DB\n"+str(e)) # Debug only
 
 def pushToMongo(evtmgr) -> bool:
     loghand = LogTemplate() # LogHandler in the Class
