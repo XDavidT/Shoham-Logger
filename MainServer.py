@@ -18,10 +18,16 @@ class informationExchangeServicer(evtmanager_pb2_grpc.informationExchangeService
         print("Request for Category's") # For debug only
         cat_massage = evtmanager_pb2.information()
         cat_list = cat_massage.category
-        #TODO: Get from server
+        #TODO: Get from DB
         cat_list.append('Security')
         cat_list.append('Application')
         return cat_massage
+
+    def PushClientReports(self,request,context):
+        if(PushClientReports(request)):
+            return evtmanager_pb2.ack(isDeliver=True)  # TCP Style
+        else:
+            return evtmanager_pb2.ack(isDeliver=False)
 
 def startConnection():  # Server to connect with client
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

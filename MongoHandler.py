@@ -1,5 +1,7 @@
-from EvtManagerClass import *
+from EvtManagerClass import LogTemplate
+from ClientReport import ClientReport as ClientR
 from datetime import datetime
+import mongoengine as meg
 
 def db_connection():
     try:
@@ -32,6 +34,17 @@ def pushToMongo(evtmgr) -> bool:
         print('Push_to_mongo failure:\n %s' % error_massage) # Debug only
         return False
 
+def PushClientReports(ClientReport)->bool:
+    clientReport = ClientR()
+    clientReport.header = ClientReport.head
+    clientReport.desc = ClientReport.details
+    clientReport.time = datetime.now()
+    try:
+        clientReport.save()
+        return True
+    except Exception as error_massage:
+        print('Push_to_mongo failure:\n %s' % error_massage)  # Debug only
+        return False
 
 def db_stopConnection():
     meg.disconnect('default')
