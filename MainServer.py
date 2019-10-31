@@ -1,7 +1,8 @@
 from concurrent import futures
 import grpc, time
 from ProtoBuf import evtmanager_pb2_grpc,evtmanager_pb2
-from MongoHandler import *
+from MongoHandler import db_connection, db_stopConnection
+from ServerActions import *
 
 class informationExchangeServicer(evtmanager_pb2_grpc.informationExchangeServicer):
 
@@ -18,10 +19,7 @@ class informationExchangeServicer(evtmanager_pb2_grpc.informationExchangeService
         print("Request for Category's") # For debug only
         cat_massage = evtmanager_pb2.information()
         cat_list = cat_massage.category
-        #TODO: Get from DB
-        cat_list.append('Security')
-        cat_list.append('Application')
-        return cat_massage
+        return get_categories(cat_list)
 
     def PushClientReports(self,request,context):
         if(PushClientReports(request)):

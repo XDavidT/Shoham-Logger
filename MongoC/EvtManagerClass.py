@@ -1,5 +1,4 @@
 import mongoengine as meg
-from datetime import datetime
 
 class LogTemplate(meg.Document):
     logid = meg.StringField(required=True)
@@ -16,6 +15,6 @@ class LogTemplate(meg.Document):
     mac_add = meg.StringField(required=True)
 
     meta = {
-        'alias': 'default',
+        'alias': 'clientManager',
         'collection': 'clientLog'
     }

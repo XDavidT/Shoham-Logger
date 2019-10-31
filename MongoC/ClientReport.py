@@ -5,6 +5,6 @@ class ClientReport(meg.Document):
     desc = meg.StringField(required=True)
     time = meg.DateTimeField(required=True)
     meta = {
-        'alias': 'default',
+        'alias': 'clientManager',
         'collection': 'ClientReports'
     }
