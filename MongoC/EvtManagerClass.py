@@ -1,5 +1,8 @@
 import mongoengine as meg
 
+meg.connect(host='mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/clientManager?retryWrites=true&w=majority',
+            alias='clientManager',db='clientManager')
+
 class LogTemplate(meg.Document):
     logid = meg.StringField(required=True)
     client_time = meg.DateTimeField(required=True)
@@ -15,6 +18,6 @@ class LogTemplate(meg.Document):
     mac_add = meg.StringField(required=True)
 
     meta = {
-        'alias': 'clientManager',
+        'db_alias': 'clientManager',
         'collection': 'clientLog'
     }

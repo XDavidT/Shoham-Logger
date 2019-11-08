@@ -1,13 +1,14 @@
-import datetime
+import datetime,pytz
 from MongoC.EvtManagerClass import LogTemplate
 from MongoC.ClientReport import ClientReport as ClientR
 from MongoC.CategoryClass import Category
 
+timezone = pytz.timezone('Asia/Tel_Aviv')
 def pushToMongo(evtmgr) -> bool:
     loghand = LogTemplate() # LogHandler in the Class
     loghand.logid = evtmgr.id
-    loghand.client_time = datetime.fromtimestamp(evtmgr.time.seconds)  #TODO: check if the convert is right
-    loghand.insert_time = datetime.now()
+    loghand.client_time = datetime.datetime.fromtimestamp(evtmgr.time.seconds, timezone)  #TODO: check if the convert is right
+    loghand.insert_time = datetime.datetime.now()
     loghand.type = evtmgr.type
     loghand.src = evtmgr.src
     loghand.cat = evtmgr.cat
@@ -30,7 +31,7 @@ def PushClientReports(ClientReport)->bool:
     clientReport = ClientR()
     clientReport.header = ClientReport.head
     clientReport.desc = ClientReport.details
-    clientReport.time = datetime.now()
+    clientReport.time = datetime.datetime.now()
     try:
         clientReport.save()
         return True
@@ -38,8 +39,9 @@ def PushClientReports(ClientReport)->bool:
         print('Push_to_mongo failure:\n %s' % error_massage)  # Debug only
         return False
 
-def get_categories(information):
-    cat_class = Category.objects.get()
+def get_categories():
+    cat_class = Category.objects.first()
+    cat_list = []
     for category in cat_class.category_select:
-        information.append(category)
-    return information
+        cat_list.append(category)
+    return cat_list
