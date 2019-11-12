@@ -38,7 +38,6 @@ def startConnection():  # Server to connect with client
     evtmanager_pb2_grpc.add_informationExchangeServicer_to_server(informationExchangeServicer(), server)
     server_credentials = grpc.ssl_server_credentials(((private_key,public_key),))
     server.add_secure_port('[::]:50051',server_credentials)
-    # server.add_insecure_port('[::]:50051')
     server.start()
     try:
         while True:

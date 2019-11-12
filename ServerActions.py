@@ -31,6 +31,7 @@ def PushClientReports(ClientReport)->bool:
     clientReport = ClientR()
     clientReport.header = ClientReport.head
     clientReport.desc = ClientReport.details
+    clientReport.hostname = ClientReport.hostname
     clientReport.time = datetime.datetime.now()
     try:
         clientReport.save()
