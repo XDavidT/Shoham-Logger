@@ -3,11 +3,12 @@ from MongoC.EvtManagerClass import LogTemplate
 from MongoC.ClientReport import ClientReport as ClientR
 from MongoC.CategoryClass import Category
 
-timezone = pytz.timezone('Asia/Tel_Aviv')
+timezone = pytz.timezone('Asia/Jerusalem')
 def pushToMongo(evtmgr) -> bool:
+
     loghand = LogTemplate() # LogHandler in the Class
     loghand.logid = evtmgr.id
-    loghand.client_time = datetime.datetime.fromtimestamp(evtmgr.time.seconds, timezone)  #TODO: check if the convert is right
+    loghand.client_time = datetime.datetime.fromtimestamp(evtmgr.time.seconds + evtmgr.time.nanos, timezone)  #TODO: check if the convert is right
     loghand.insert_time = datetime.datetime.now()
     loghand.type = evtmgr.type
     loghand.src = evtmgr.src
