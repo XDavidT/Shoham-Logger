@@ -1,6 +1,6 @@
 import mongoengine as meg
 
-meg.connect(host='mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/clientManager?retryWrites=true&w=majority',
+meg.connect(host='mongodb://siem.davidt.net:27018',
             alias='clientManager',db='clientManager')
 
 class LogTemplate(meg.Document):
