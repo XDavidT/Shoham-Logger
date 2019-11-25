@@ -1,4 +1,5 @@
-import datetime,pytz
+import datetime
+import pytz
 from MongoC.EvtManagerClass import LogTemplate
 from MongoC.ClientReport import ClientReport as ClientR
 from MongoC.CategoryClass import Category
