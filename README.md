@@ -4,7 +4,7 @@ The logger is server to Siem clients ( right now only Windows client available),
 The logger need to provide categories for clients, to start sending relevant logs.
 To use that code, you must generate new certificate, provide public to logger & clients, but only logger have the private.
 
-##How to use ?
+## How to use ?
 This project was tested on CentOS 7.
 1. Install python 3 in your machine
 2.  Clone project
